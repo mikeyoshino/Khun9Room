@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-Khun9Room-7F667198-4513-4550-8F70-A2B638C04CA6</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200829164740_InitialAllNessaryModels.cs" />
+    <Compile Remove="Data\Migrations\20200829164740_InitialAllNessaryModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200831171233_addPropertyIdToTenant.cs" />
+    <Compile Remove="Data\Migrations\20200831171233_addPropertyIdToTenant.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200901051110_setTenantRequired.cs" />
+    <Compile Remove="Data\Migrations\20200901051110_setTenantRequired.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="images\avatar\" />
+  </ItemGroup>
+
+</Project>

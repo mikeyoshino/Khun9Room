@@ -1,0 +1,110 @@
+﻿@model Khun9Room.Models.Room
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add</h1>
+
+<h4>Room</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UnitNumber" class="control-label"></label>
+                <input asp-for="UnitNumber" class="form-control" />
+                <span asp-validation-for="UnitNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieIn" class="control-label"></label>
+                <input asp-for="MovieIn" class="form-control" />
+                <span asp-validation-for="MovieIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndLease" class="control-label"></label>
+                <input asp-for="EndLease" class="form-control" />
+                <span asp-validation-for="EndLease" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentPrice" class="control-label"></label>
+                <input asp-for="RentPrice" class="form-control" />
+                <span asp-validation-for="RentPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2">
+                <label asp-for="PropertyId" class="control-label"></label>
+                <select asp-for="PropertyId" id="propertyId" class="form-control"></select>
+            </div>
+            <div class="form-group p-2">
+                <label asp-for="TenantId" class="control-label"></label>
+                <select asp-for="TenantId" id="TenantId" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+        $(document).ready(function () {
+            $.ajax({
+                method: "GET",
+                url: "/User/Room/GetPropertyDropdownList",
+                dataType: "json",
+                success: function (data) {
+                    var s = '<option value="-1">เลือกที่เช่า</option>';
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].id + '">' + data[i].propertyName + '</option>';
+                    }
+                    $("#propertyId").html(s);
+                }
+            })
+        })
+
+        function myFunction() {
+            document.getElementById("TenantForm").reset();
+        }
+
+            $(function () {
+
+
+        //Dynamic category selection
+        if ($("#propertyId").val() == '0') {
+            var productDefaultValue = "<option value='0'> - Select a Category First - </option>";
+            $("#TenantId").html(productDefaultValue).show();
+        }
+        $("#propertyId").change(function () {
+            var selectedItemValue = $(this).val();
+            var ddlProducts = $("#TenantId");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetTenantList", "Room")',
+                data: { "id": selectedItemValue },
+                success: function (data) {
+                    ddlProducts.html('');
+                    $.each(data, function (id, option) {
+                        ddlProducts.append($('<option></option>').val(option.tenantId).html(option.fullName));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Found error to load product!!.');
+                }
+            });
+        });
+    });
+</script>
+}
+

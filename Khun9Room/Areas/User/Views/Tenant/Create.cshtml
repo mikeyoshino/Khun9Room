@@ -1,0 +1,68 @@
+﻿@model Khun9Room.Models.Tenant
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Tenant</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            @Html.HiddenFor(model => model.TenantId)
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group p-2">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2">
+                <label asp-for="PropertyId" class="control-label"></label>
+                <select asp-for="PropertyId" id="list" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="สร้างผู้เช่า" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-dark">กลับหน้าแรก</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                method: "GET",
+                url: "/User/Tenant/GetPropertyDropdownList",
+                dataType: "json",
+                success: function (data) {
+                    var s = '<option value="-1">เลือกที่เช่า</option>';
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].id + '">' + data[i].propertyName + '</option>';
+                    }
+                    $("#list").html(s);
+                }
+            })
+        })
+
+        function myFunction() {
+            document.getElementById("TenantForm").reset();
+        }
+    </script>
+}
