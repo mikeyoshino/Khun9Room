@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Khun9Room.Data;
+using Khun9Room.Utility;
 using Khun9Room.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +49,11 @@ namespace Khun9Room.Areas.User.Controllers
             {
                 if (room.RoomNumber == 0)
                 {
+                    room.PaymentStatus = PaymentStatus.Paid;
+                    room.NextPayDate = DateTime.Now;
+                    room.Paydate = DateTime.Now.AddDays(30);
                     _db.Rooms.Add(room);
+                    
                 }
                 else
                 {

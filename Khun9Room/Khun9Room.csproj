@@ -12,6 +12,14 @@
     <Compile Remove="Data\Migrations\20200831171233_addPropertyIdToTenant.Designer.cs" />
     <Compile Remove="Data\Migrations\20200901051110_setTenantRequired.cs" />
     <Compile Remove="Data\Migrations\20200901051110_setTenantRequired.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200902042849_AddUnitClass.cs" />
+    <Compile Remove="Data\Migrations\20200902042849_AddUnitClass.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200902043119_AddUnitClass.cs" />
+    <Compile Remove="Data\Migrations\20200902043119_AddUnitClass.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200902043509_AddUnitClass.cs" />
+    <Compile Remove="Data\Migrations\20200902043509_AddUnitClass.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200902044555_ChangeUnitToUnitNumber.cs" />
+    <Compile Remove="Data\Migrations\20200902044555_ChangeUnitToUnitNumber.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

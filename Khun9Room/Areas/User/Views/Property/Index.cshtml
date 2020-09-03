@@ -28,8 +28,29 @@
 </div>
 
 
+<input type="checkbox" name="checkbox-1" id="checkbox-1" />
+<input type="checkbox" name="checkbox-2" id="checkbox-2" />
+<input type="checkbox" name="checkbox-3" id="checkbox-3" />
+
+<!-- select all boxes -->
+<input type="checkbox" name="select-all" id="select-all" />
+
 @section Scripts{
 
     <script src="~/js/Property.js"></script>
+<script>
+    $('#select-all').click(function (event) {
+        if (this.checked) {
+            // Iterate each checkbox
+            $(':checkbox').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+</script>
 
 }
