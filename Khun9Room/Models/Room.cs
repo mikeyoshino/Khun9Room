@@ -35,5 +35,9 @@ namespace Khun9Room.Models
         public DateTime NextPayDate { get; set; }
         public string PaymentStatus { get; set; }
 
+        public ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("ApplicationId")]
+        public string ApplicationUserId { get; set; }
+
     }
 }

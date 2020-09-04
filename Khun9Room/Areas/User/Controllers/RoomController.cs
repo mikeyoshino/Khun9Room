@@ -45,13 +45,17 @@ namespace Khun9Room.Areas.User.Controllers
         [HttpPost]
         public IActionResult Add(Room room)
         {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             if (ModelState.IsValid)
             {
                 if (room.RoomNumber == 0)
                 {
                     room.PaymentStatus = PaymentStatus.Paid;
-                    room.NextPayDate = DateTime.Now;
-                    room.Paydate = DateTime.Now.AddDays(30);
+                    room.NextPayDate = DateTime.Today;
+                    room.Paydate = DateTime.Today.AddDays(30);
+                    room.ApplicationUserId = claims.Value;
                     _db.Rooms.Add(room);
                     
                 }
@@ -106,7 +110,10 @@ namespace Khun9Room.Areas.User.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _db.Rooms.Include(t => t.Tenant).ToList();
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var allObj = _db.Rooms.Include(t => t.Tenant).Where(u=>u.ApplicationUserId == claims.Value).ToList();
             
             return Json(new { data = allObj });
         }

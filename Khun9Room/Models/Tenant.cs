@@ -26,6 +26,10 @@ namespace Khun9Room.Models
         public int PropertyId { get; set; }
         public ICollection<Room> Rooms { get; set; }
 
+        public ApplicationUser applicationUser { get; set; }
+        [ForeignKey("ApplicationId")]
+        public string ApplicationUserId { get; set; }
+
         [NotMapped]
         public string FullName
         {

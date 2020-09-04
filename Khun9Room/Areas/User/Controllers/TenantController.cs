@@ -48,10 +48,14 @@ namespace Khun9Room.Areas.User.Controllers
         [HttpPost]
         public IActionResult Create(Tenant tenant)
         {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             if (ModelState.IsValid)
             {
                 if (tenant.TenantId == 0)
                 {
+                    tenant.ApplicationUserId = claims.Value;
                     _db.Tenants.Add(tenant);
                 }
                 else
@@ -95,7 +99,10 @@ namespace Khun9Room.Areas.User.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _db.Tenants.ToList();
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var allObj = _db.Tenants.Where(u => u.ApplicationUserId == claims.Value).ToList();
             return Json(new { data = allObj });
         }
         #endregion

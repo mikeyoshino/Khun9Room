@@ -53,7 +53,11 @@ namespace Khun9Room.Areas.User.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _db.Properties.ToList();
+
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var allObj = _db.Properties.Where(u => u.applicationUserId == claims.Value).ToList();
             return Json(new { data = allObj });
         }
 
