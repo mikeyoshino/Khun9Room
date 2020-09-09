@@ -1,4 +1,4 @@
-﻿@model Khun9Room.Models.Room
+﻿@model Khun9Room.ViewModels.RoomViewModel
 
 @{
     ViewData["Title"] = "Add";
@@ -13,34 +13,45 @@
     <div class="col-md-4">
         <form asp-action="Add">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UnitNumber" class="control-label"></label>
-                <input asp-for="UnitNumber" class="form-control" />
-                <span asp-validation-for="UnitNumber" class="text-danger"></span>
+
+            <div class="form-group p-2">
+                <label asp-for="Room.UnitNumberId" class="control-label"></label>
+                <input type="search" class="form-control" list="unitRoomList" asp-for="Room.UnitNumberId" placeholder="Enter unit number" />
+                <span asp-validation-for="Room.UnitNumberId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MovieIn" class="control-label"></label>
-                <input asp-for="MovieIn" class="form-control" />
-                <span asp-validation-for="MovieIn" class="text-danger"></span>
+            <div style="height: 100px; width: 200px; position:absolute;">
+                <datalist id="unitRoomList">
+                    @foreach (var unitNumber in Model.UnitNumbers)
+                    {
+                        <option value="@unitNumber.UnitNumberId">@unitNumber.UnitNumberId</option>
+                    }
+                </datalist>
             </div>
-            <div class="form-group">
-                <label asp-for="EndLease" class="control-label"></label>
-                <input asp-for="EndLease" class="form-control" />
-                <span asp-validation-for="EndLease" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RentPrice" class="control-label"></label>
-                <input asp-for="RentPrice" class="form-control" />
-                <span asp-validation-for="RentPrice" class="text-danger"></span>
+
+            <div class="form-group p-2">
+                <label asp-for="Room.MovieIn" class="control-label"></label>
+                <input asp-for="Room.MovieIn" class="form-control" />
+                <span asp-validation-for="Room.MovieIn" class="text-danger"></span>
             </div>
             <div class="form-group p-2">
-                <label asp-for="PropertyId" class="control-label"></label>
-                <select asp-for="PropertyId" id="propertyId" class="form-control"></select>
+                <label asp-for="Room.EndLease" class="control-label"></label>
+                <input asp-for="Room.EndLease" class="form-control" />
+                <span asp-validation-for="Room.EndLease" class="text-danger"></span>
             </div>
             <div class="form-group p-2">
-                <label asp-for="TenantId" class="control-label"></label>
-                <select asp-for="TenantId" id="TenantId" class="form-control"></select>
+                <label asp-for="Room.RentPrice" class="control-label"></label>
+                <input asp-for="Room.RentPrice" class="form-control" />
+                <span asp-validation-for="Room.RentPrice" class="text-danger"></span>
             </div>
+            <div class="form-group p-2">
+                <label asp-for="Room.PropertyId" class="control-label"></label>
+                <select asp-for="Room.PropertyId" id="propertyId" class="form-control"></select>
+            </div>
+            <div class="form-group p-2">
+                <label asp-for="Room.TenantId" class="control-label"></label>
+                <select asp-for="Room.TenantId" id="TenantId" class="form-control"></select>
+            </div>
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

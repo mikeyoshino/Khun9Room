@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Khun9Room.Data;
 using Khun9Room.Utility;
 using Khun9Room.Models;
+using Khun9Room.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,18 +28,25 @@ namespace Khun9Room.Areas.User.Controllers
 
         public IActionResult Add(int? id)
         {
-            var room = new Room();
+            var room = new RoomViewModel()
+            {
+                Room = new Room(),
+                UnitNumbers = _db.UnitNumbers.Where(u => u.IsTaken == false).ToList()
+
+            };
+
             if (id == null)
             {
                 return View(room);
             }
 
-            room = _db.Rooms.SingleOrDefault(t => t.RoomNumber == id);
+            room.Room = _db.Rooms.SingleOrDefault(t => t.RoomNumber == id);
 
             if (room == null)
             {
                 return NotFound();
             }
+
             return View(room);
         }
 
@@ -113,7 +121,7 @@ namespace Khun9Room.Areas.User.Controllers
             var claimIdentity = (ClaimsIdentity)User.Identity;
             var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            var allObj = _db.Rooms.Include(t => t.Tenant).Where(u=>u.ApplicationUserId == claims.Value).ToList();
+            var allObj = _db.Rooms.Include(t => t.Tenant).Include(t => t.UnitNumber).Where(u=>u.ApplicationUserId == claims.Value).ToList();
             
             return Json(new { data = allObj });
         }

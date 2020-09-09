@@ -20,6 +20,18 @@
     <Compile Remove="Data\Migrations\20200902043509_AddUnitClass.Designer.cs" />
     <Compile Remove="Data\Migrations\20200902044555_ChangeUnitToUnitNumber.cs" />
     <Compile Remove="Data\Migrations\20200902044555_ChangeUnitToUnitNumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200909071648_addUnitIdToRoom.cs" />
+    <Compile Remove="Data\Migrations\20200909071648_addUnitIdToRoom.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200909071935_addUnitIdToRoom.cs" />
+    <Compile Remove="Data\Migrations\20200909071935_addUnitIdToRoom.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200909072135_addUnitIdToRoom.cs" />
+    <Compile Remove="Data\Migrations\20200909072135_addUnitIdToRoom.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200909073358_RemoveUnitNumber.cs" />
+    <Compile Remove="Data\Migrations\20200909073358_RemoveUnitNumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200909073546_addUnitNumber.cs" />
+    <Compile Remove="Data\Migrations\20200909073546_addUnitNumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200909074057_changeIdToUnitNumberId.cs" />
+    <Compile Remove="Data\Migrations\20200909074057_changeIdToUnitNumberId.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

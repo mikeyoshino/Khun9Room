@@ -14,9 +14,6 @@ namespace Khun9Room.Models
         public int RoomNumber { get; set; }
 
         [Required]
-        public string UnitNumber { get; set; }
-
-        [Required]
         public DateTime MovieIn { get; set; }
         public DateTime? EndLease { get; set; }
 
@@ -30,6 +27,10 @@ namespace Khun9Room.Models
         public Tenant Tenant { get; set; }
         [ForeignKey("TenantId")]
         public int TenantId { get; set; }
+
+        public UnitNumber UnitNumber { get; set; }
+        [ForeignKey("UnitNumberId")]
+        public int UnitNumberId { get; set; }
 
         public DateTime Paydate { get; set; }
         public DateTime NextPayDate { get; set; }

@@ -11,7 +11,7 @@ function loadDataTable() {
             "url": "/User/Room/GetAll"
         },
         "columns": [
-            { "data": "unitNumber", "width": "15%" },
+            { "data": "unitNumber.unitNumberId", "width": "15%" },
             { "data": "tenant.fullName", "width": "15%" },
             { "data": "paymentStatus", "width": "15%" },
             { "data": "nextPayDate", "width": "15%" },

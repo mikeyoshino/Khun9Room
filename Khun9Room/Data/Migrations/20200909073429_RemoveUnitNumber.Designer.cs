@@ -4,14 +4,16 @@ using Khun9Room.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Khun9Room.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200909073429_RemoveUnitNumber")]
+    partial class RemoveUnitNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,9 +91,6 @@ namespace Khun9Room.Data.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitNumberId")
-                        .HasColumnType("int");
-
                     b.HasKey("RoomNumber");
 
                     b.HasIndex("ApplicationUserId");
@@ -99,8 +98,6 @@ namespace Khun9Room.Data.Migrations
                     b.HasIndex("PropertyId");
 
                     b.HasIndex("TenantId");
-
-                    b.HasIndex("UnitNumberId");
 
                     b.ToTable("Rooms");
                 });
@@ -131,24 +128,6 @@ namespace Khun9Room.Data.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Tenants");
-                });
-
-            modelBuilder.Entity("Khun9Room.Models.UnitNumber", b =>
-                {
-                    b.Property<int>("UnitNumberId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsTaken")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UnitPrefix")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UnitNumberId");
-
-                    b.ToTable("UnitNumbers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -395,12 +374,6 @@ namespace Khun9Room.Data.Migrations
                     b.HasOne("Khun9Room.Models.Tenant", "Tenant")
                         .WithMany("Rooms")
                         .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Khun9Room.Models.UnitNumber", "UnitNumber")
-                        .WithMany("Rooms")
-                        .HasForeignKey("UnitNumberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

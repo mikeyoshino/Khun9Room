@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Khun9Room.Areas.User.Controllers
 {
-    public class UnitController : Controller
+    public class UnitNumberController : Controller
     {
         ApplicationDbContext _db;
-        public UnitController(ApplicationDbContext db)
+        public UnitNumberController(ApplicationDbContext db)
         {
             _db = db;
         }
@@ -21,24 +21,24 @@ namespace Khun9Room.Areas.User.Controllers
         }
         public IActionResult Add()
         {
-            var unit = new Unit();
+            var unit = new UnitNumber();
             return View(unit);
         }
 
         [HttpPost]
-        public IActionResult Add(Unit unit)
+        public IActionResult Add(UnitNumber unit)
         {
 
             if (ModelState.IsValid)
             {
-                if (unit.UnitId == 0)
+                if (unit.UnitNumberId == 0)
                 {
-                    _db.Units.Add(unit);
+                    _db.UnitNumbers.Add(unit);
                     unit.IsTaken = false;
                 }
                 else
                 {
-                    _db.Units.Update(unit);
+                    _db.UnitNumbers.Update(unit);
                 }
                 _db.SaveChanges();
             }
@@ -48,17 +48,17 @@ namespace Khun9Room.Areas.User.Controllers
 
 
         [HttpPost]
-        public IActionResult MultipleAdd(Unit unit, int rangeFrom, int rangeTo, string unitPrefix)
+        public IActionResult MultipleAdd(UnitNumber unit, int rangeFrom, int rangeTo, string unitPrefix)
         {
             for (int i = rangeFrom; i < rangeTo; i++)
             {
                 unit.UnitPrefix = unitPrefix;
-                unit.UnitNumber = i;
+                unit.UnitNumberId = i;
                 unit.IsTaken = false;
-                _db.Units.Add(unit);
+                _db.UnitNumbers.Add(unit);
                 _db.SaveChanges();
             }
-            return RedirectToAction("Index", "Unit");
+            return RedirectToAction("Index", "UnitNumbers");
 
 
         }

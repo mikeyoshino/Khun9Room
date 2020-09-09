@@ -13,7 +13,7 @@ namespace Khun9Room.Data
         public DbSet<Property> Properties { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
-        public DbSet<Unit> Units { get; set; }
+        public DbSet<UnitNumber> UnitNumbers { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
