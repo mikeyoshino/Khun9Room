@@ -34,6 +34,34 @@ function loadDataTable() {
     });
 }
 
+
+function loadDataTable() {
+    dataTable = $('#tblDataUnitList').DataTable({
+        "ajax": {
+            "url": "/User/Room/GetUnitList"
+        },
+        "columns": [
+            { "data": "unitNo", "width": "15%" },
+            { "data": "unitPrefix", "width": "15%" },
+            {
+                "data": "unitNumberId",
+                "render": function (data) {
+                    return `
+                            <div class="text-center">
+                                <a href="/user/room/create/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                    <i class="fas fa-edit"></i> 
+                                </a>
+                                <a onclick=Delete("/User/Room/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                    <i class="fas fa-trash-alt"></i> 
+                                </a>
+                            </div>
+                           `;
+                }, "width": "20%"
+            }
+        ]
+    });
+}
+
 function Delete(url) {
     swal({
         title: "ยืนยันการลบ",

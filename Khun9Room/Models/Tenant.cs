@@ -30,6 +30,7 @@ namespace Khun9Room.Models
         [ForeignKey("ApplicationId")]
         public string ApplicationUserId { get; set; }
 
+        public bool IsRent { get; set; }
         [NotMapped]
         public string FullName
         {

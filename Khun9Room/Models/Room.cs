@@ -14,7 +14,9 @@ namespace Khun9Room.Models
         public int RoomNumber { get; set; }
 
         [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-mm-yyyy}")]
         public DateTime MovieIn { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-mm-yyyy}")]
         public DateTime? EndLease { get; set; }
 
         [Required]

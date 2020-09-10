@@ -56,6 +56,9 @@ namespace Khun9Room.Areas.User.Controllers
             var claimIdentity = (ClaimsIdentity)User.Identity;
             var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
+            var getTenant = _db.Tenants.FirstOrDefault(u => u.TenantId == room.TenantId);
+            var getRoom = _db.UnitNumbers.FirstOrDefault(r => r.UnitNumberId == room.UnitNumberId);
+
             if (ModelState.IsValid)
             {
                 if (room.RoomNumber == 0)
@@ -64,6 +67,8 @@ namespace Khun9Room.Areas.User.Controllers
                     room.NextPayDate = DateTime.Today;
                     room.Paydate = DateTime.Today.AddDays(30);
                     room.ApplicationUserId = claims.Value;
+                    getTenant.IsRent = true;
+                    getRoom.IsTaken = true;
                     _db.Rooms.Add(room);
                     
                 }
@@ -90,10 +95,25 @@ namespace Khun9Room.Areas.User.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetUnitDropdownList()
+        {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var unitList = _db.UnitNumbers.Where(p => p.ApplicationUserId == claims.Value 
+                            && p.IsTaken == false)
+                            .Select(n => new { n.UnitNumberId, n.UnitNo })
+                            .ToList();
+
+            return new JsonResult(unitList);
+
+        }
+
+        [HttpGet]
         public IActionResult GetTenantList(int id)
         {
 
-            var tenantList = _db.Tenants.Where(t => t.PropertyId == id).ToList();
+            var tenantList = _db.Tenants.Where(t => t.PropertyId == id && t.IsRent == false).ToList();
 
             return new JsonResult(tenantList);
 
@@ -104,10 +124,17 @@ namespace Khun9Room.Areas.User.Controllers
         {
 
             var objFromDb = _db.Rooms.SingleOrDefault(t => t.RoomNumber == id);
+            var getTenant = _db.Tenants.FirstOrDefault(u => u.TenantId == objFromDb.TenantId);
+            var getRoom = _db.UnitNumbers.FirstOrDefault(r => r.UnitNumberId == objFromDb.UnitNumberId);
+
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "เกิดข้อผิดพลาดระหว่างการลบ" });
             }
+
+            getTenant.IsRent = false;
+            getRoom.IsTaken = false;
+
             _db.Rooms.Remove(objFromDb);
             _db.SaveChanges();
 
@@ -125,6 +152,54 @@ namespace Khun9Room.Areas.User.Controllers
             
             return Json(new { data = allObj });
         }
+
+        public IActionResult GetUnitList()
+        {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var allObj = _db.UnitNumbers.Where(u => u.ApplicationUserId == claims.Value).ToList();
+
+            return Json(new { data = allObj });
+        }
         #endregion
+
+
+        public IActionResult UnitList()
+        {
+            return View();
+        }
+
+
+        public IActionResult AddUnit()
+        {
+            var unit = new UnitNumber();
+            return View(unit);
+        }
+
+        [HttpPost]
+        public IActionResult AddUnit(UnitNumber unitNumber)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (unitNumber.UnitNumberId == 0)
+                {
+                    var claimIdentity = (ClaimsIdentity)User.Identity;
+                    var claims = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+                    unitNumber.ApplicationUserId = claims.Value;
+                    _db.UnitNumbers.Add(unitNumber);
+                    unitNumber.IsTaken = false;
+                }
+                else
+                {
+                    _db.UnitNumbers.Update(unitNumber);
+                }
+                _db.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

@@ -1,8 +1,39 @@
-﻿@{
+﻿@model Khun9Room.ViewModels.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="card m-2 p-4">
+    <div class="row">
+        <div class="card col-md-3">
+            <div class="simple-stats panel panel-body panel-body-accent">
+                <div class="media no-margin">
+                    <div class="media-left media-middle">
+                        <i class="icon-3x stats-icon icon-wallet text-blue-400"></i>
+                    </div> <div class="media-body text-right">
+                        <h3 class="no-margin text-semibold" style="color: rgb(31, 142, 231);">
+                            <span data-popup="tooltip" data-placement="top" title="" class="tooltip-elem" style="cursor: pointer; padding: 0px 5px;" data-original-title="$ 27.5177">
+                                <i class="fa fa-dollar-sign"></i> @Model.Rooms.Count();
+                            </span> <!---->
+                        </h3>
+                        <span class="text-uppercase text-size-mini text-muted">จำนวนห้อง</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card">
+                sssssss
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                sssssss
+            </div>
+        </div>
+    </div>
 </div>

@@ -34,7 +34,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">ระบบห้อง</div>
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -44,36 +44,39 @@
                             จัดการสถานที่
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        @*<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">*@
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link active" asp-area="User" asp-controller="Property" asp-action="Index">รายชื่อสถานที่</a>
+                                <a class="nav-link" asp-area="User" asp-controller="Property" asp-action="Index">รายชื่อสถานที่</a>
                                 <a class="nav-link" asp-area="User" asp-controller="Property" asp-action="add">เพิ่มสถานที่</a>
                             </nav>
-                        </div>
+                        @*</div>*@
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tenant" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             จัดการผู้เช่า
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="tenant" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        @*<div class="collapse" id="tenant" aria-labelledby="headingOne" data-parent="#sidenavAccordion">*@
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link active" asp-area="User" asp-controller="tenant" asp-action="Index">รายชื่อผู้เช่า</a>
+                                <a class="nav-link" asp-area="User" asp-controller="tenant" asp-action="Index">รายชื่อผู้เช่า</a>
                                 <a class="nav-link" asp-area="User" asp-controller="tenant" asp-action="create">เพิ่มผู้เช่า</a>
                             </nav>
-                        </div>
+                        @*</div>*@
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#room" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             จัดการห้องเช่า
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="room" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link active" asp-area="User" asp-controller="room" asp-action="Index">รายชื่อห้องเช่า</a>
-                                <a class="nav-link" asp-area="User" asp-controller="room" asp-action="add">เพิ่มห้องเข่า</a>
-                            </nav>
-                        </div>
+                        @*<div class="collapse" id="room" aria-labelledby="headingOne" data-parent="#sidenavAccordion">*@
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" asp-area="User" asp-controller="room" asp-action="Index">ห้องเช่า</a>
+                        <a class="nav-link" asp-area="User" asp-controller="room" asp-action="add">เพิ่มห้องเข่า</a>
+                        <hr class="text-white" />
+                        <a class="nav-link" asp-area="User" asp-controller="room" asp-action="unitlist">หมายเลขห้อง</a>
+                        <a class="nav-link" asp-area="User" asp-controller="room" asp-action="addunit">เพิ่มหมายเลขห้อง</a>
+                    </nav>
+                        @*</div>*@
 
                     </div>
                 </div>
