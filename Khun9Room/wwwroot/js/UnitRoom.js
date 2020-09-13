@@ -6,24 +6,22 @@ $(document).ready(function () {
 
 
 function loadDataTable() {
-    dataTable = $('#tblData').DataTable({
+    dataTable = $('#tblDataUnitList').DataTable({
         "ajax": {
-            "url": "/User/Room/GetAll"
+            "url": "/User/Room/GetUnitList"
         },
         "columns": [
-            { "data": "unitNumber.unitNo", "width": "15%" },
-            { "data": "tenant.fullName", "width": "15%" },
-            { "data": "paymentStatus", "width": "15%" },
-            { "data": "nextPayDate", "width": "15%" },
+            { "data": "unitNo", "width": "15%" },
+            { "data": "unitPrefix", "width": "15%" },
             {
-                "data": "roomNumber",
+                "data": "unitNumberId",
                 "render": function (data) {
                     return `
                             <div class="text-center">
                                 <a href="/user/room/create/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i> 
                                 </a>
-                                <a onclick=Delete("/User/Room/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                <a onclick=Delete("/User/Room/DeleteUnit/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                     <i class="fas fa-trash-alt"></i> 
                                 </a>
                             </div>

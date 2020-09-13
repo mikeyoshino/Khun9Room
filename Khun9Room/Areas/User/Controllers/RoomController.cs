@@ -141,6 +141,26 @@ namespace Khun9Room.Areas.User.Controllers
             return Json(new { success = true, message = "ดำเนินการลบสำเร็จ" });
 
         }
+
+        [HttpDelete]
+        public IActionResult DeleteUnit(int id)
+        {
+
+            var objFromDb = _db.UnitNumbers.SingleOrDefault(t => t.UnitNumberId == id);
+
+
+            if (objFromDb == null)
+            {
+                return Json(new { success = false, message = "เกิดข้อผิดพลาดระหว่างการลบ" });
+            }
+
+
+            _db.UnitNumbers.Remove(objFromDb);
+            _db.SaveChanges();
+
+            return Json(new { success = true, message = "ดำเนินการลบสำเร็จ" });
+
+        }
         #region API CALLS
         [HttpGet]
         public IActionResult GetAll()
@@ -165,9 +185,17 @@ namespace Khun9Room.Areas.User.Controllers
         #endregion
 
 
-        public IActionResult UnitList()
+        public IActionResult UnitList(int? id)
         {
-            return View();
+            if(id != null)
+            {
+                var getUnit = _db.UnitNumbers.SingleOrDefault(u => u.UnitNumberId == id);
+                _db.UnitNumbers.Remove(getUnit);
+                _db.SaveChanges();
+                return RedirectToAction("UnitList");
+            }
+            var unitList = _db.UnitNumbers.ToList();
+            return View(unitList);
         }
 
 

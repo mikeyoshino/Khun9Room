@@ -59,7 +59,7 @@ namespace Khun9Room
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseStatusCodePages();
             app.UseAuthentication();
             app.UseAuthorization();
 
